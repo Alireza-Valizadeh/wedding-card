@@ -780,7 +780,7 @@ body {
     opacity: 0;
     animation: fadeInCard 1s ease-in forwards;
     animation-delay: 2.5s;
-    min-height: 580px;
+    min-height: 550px;
 }
 
 .card-title {
@@ -941,7 +941,7 @@ body {
 @media (max-width: 480px) {
     .card-content {
         padding: 30px 20px;
-        min-height: 580px;
+        min-height: 550px;
     }
 
     .card-title {
