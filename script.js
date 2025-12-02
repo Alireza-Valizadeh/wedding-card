@@ -1,11 +1,12 @@
 // Persian text content - you can customize this
 const content = {
     title: "به نامش و در پناهش",
-    text: "از صدای سخن عشق ندیدم خوش تـــر",
+    text: "از صدای سخن عشق ندیدم خوش تـــر \n در بزم عشق ما حضور پرمهرتان روشناییست",
     names: "بهنوش و علیرضا ",
     familyNames: "جابـــری و ولـــی زاده",
     date: "شنبه ۲۲ آذر ماه ۱۴۰۴ \n  ساعت ۱۸ الی ۲۳",
-    address: "ابتدای جاده شاندیز، بعد از خیابان فرمانیه، کوچه ثامن الائمه ۵، تالار وایت گاردن"
+    address: "ابتدای جاده شاندیز، بعد از خیابان فرمانیه، کوچه ثامن الائمه ۵، تالار وایت گاردن",
+    noShow: "لطفا در صورت عدم امکان تشریف فرمایی، ما را تا تاریخ ۱۸ آذر، مطلع فرمایید."
 };
 
 // Function to animate text word by word from right to left
@@ -45,6 +46,7 @@ function startTextAnimation() {
         const familyNamesElement = document.getElementById('familyNames');
         const dateElement = document.getElementById('date');
         const addressElement = document.getElementById('address');
+        const noShowElement = document.getElementById('noShow');
 
         // Animate title first
         animateText(titleElement, content.title, 0);
@@ -84,6 +86,15 @@ function startTextAnimation() {
 
                         setTimeout(() => {
                             animateText(addressElement, content.address, 0);
+
+                            // Calculate delay for no show text
+                            const addressWords = content.address.replace(/\n/g, ' ').split(' ').filter(w => w.trim()).length;
+                            const noShowDelay = addressWords * 0.3 + 0.3;
+
+                            setTimeout(() => {
+                                animateText(noShowElement, content.noShow, 0);
+                            }, noShowDelay * 1000);
+
                         }, addressDelay * 1000);
 
                     }, dateDelay * 1000);
@@ -100,5 +111,41 @@ function startTextAnimation() {
 // Start the animation when page loads
 window.addEventListener('load', () => {
     startTextAnimation();
+    playBackgroundAudio();
 });
+
+// Play background audio
+function playBackgroundAudio() {
+    const audio = document.getElementById('bgAudio');
+    const audioBtn = document.getElementById('audioBtn');
+    audio.volume = 0.5; // 50% volume
+    
+    // Try to autoplay
+    const playPromise = audio.play();
+    
+    if (playPromise !== undefined) {
+        playPromise.then(() => {
+            // Autoplay worked
+            audioBtn.classList.add('show', 'playing');
+            audioBtn.textContent = '🔊';
+        }).catch(() => {
+            // Autoplay blocked - show button
+            audioBtn.classList.add('show');
+            audioBtn.textContent = '🔇';
+        });
+    }
+
+    // Toggle audio on button click
+    audioBtn.addEventListener('click', () => {
+        if (audio.paused) {
+            audio.play();
+            audioBtn.textContent = '🔊';
+            audioBtn.classList.add('playing');
+        } else {
+            audio.pause();
+            audioBtn.textContent = '🔇';
+            audioBtn.classList.remove('playing');
+        }
+    });
+}
 

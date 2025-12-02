@@ -780,6 +780,7 @@ body {
     opacity: 0;
     animation: fadeInCard 1s ease-in forwards;
     animation-delay: 2.5s;
+    min-height: 580px;
 }
 
 .card-title {
@@ -853,6 +854,17 @@ body {
     line-height: 1.6;
 }
 
+.no-show {
+    font-family: 'Vazirmatn', serif;
+    font-size: 12px;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.85);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+    margin-top: 30px;
+    letter-spacing: 0.2px;
+    line-height: 1.5;
+}
+
 /* Word animation */
 .word {
     display: inline-block;
@@ -885,10 +897,51 @@ body {
     }
 }
 
+/* Audio Button */
+.audio-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 100;
+    width: 62px;
+    height: 62px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    color: white;
+    font-size: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    display: none;
+}
+
+.audio-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
+}
+
+.audio-btn.show {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.audio-btn.playing {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
 /* Mobile Optimization */
 @media (max-width: 480px) {
     .card-content {
         padding: 30px 20px;
+        min-height: 580px;
     }
 
     .card-title {
@@ -914,6 +967,10 @@ body {
 
     .address {
         font-size: 13px;
+    }
+
+    .no-show {
+        font-size: 10px;
     }
 
 }
