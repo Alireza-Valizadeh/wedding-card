@@ -1,10 +1,10 @@
 // Persian text content - you can customize this
 const content = {
-    title: "به نام ایزد یکـــتا",
-    text: "و عشق آغاز راه ما بود... \n در بزم عشق ما حضور پر مهرتان روشناییست",
+    title: "به نامش و در پناهش",
+    text: "از صدای سخن عشق ندیدم خوش تـــر",
     names: "بهنوش و علیرضا ",
     familyNames: "جابـــری و ولـــی زاده",
-    date: "شنبه ۲۲ آذر ماه ۱۴۰۴",
+    date: "شنبه ۲۲ آذر ماه ۱۴۰۴ \n  ساعت ۱۸ الی ۲۳",
     address: "ابتدای جاده شاندیز، بعد از خیابان فرمانیه، کوچه ثامن الائمه ۵، تالار وایت گاردن"
 };
 
@@ -49,24 +49,24 @@ function startTextAnimation() {
         // Animate title first
         animateText(titleElement, content.title, 0);
 
-        // Calculate delay for text (after title words finish)
+        // Calculate delay for names (after title words finish)
         const titleWords = content.title.split(' ').length;
-        const textDelay = titleWords * 0.3 + 0.5;
+        const namesDelay = titleWords * 0.3 + 0.5;
 
-        // Animate text
+        // Animate names
         setTimeout(() => {
-            animateText(textElement, content.text, 0);
+            animateText(namesElement, content.names, 0);
 
-            // Calculate delay for names
-            const textWords = content.text.replace(/\n/g, ' ').split(' ').filter(w => w.trim()).length;
-            const namesDelay = textWords * 0.3 + 0.5;
+            // Calculate delay for text
+            const namesWords = content.names.split(' ').length;
+            const textDelay = namesWords * 0.3 + 0.3;
 
             setTimeout(() => {
-                animateText(namesElement, content.names, 0);
+                animateText(textElement, content.text, 0);
 
                 // Calculate delay for family names
-                const namesWords = content.names.split(' ').length;
-                const familyNamesDelay = namesWords * 0.3 + 0.3;
+                const textWords = content.text.replace(/\n/g, ' ').split(' ').filter(w => w.trim()).length;
+                const familyNamesDelay = textWords * 0.3 + 0.3;
 
                 setTimeout(() => {
                     animateText(familyNamesElement, content.familyNames, 0);
@@ -90,9 +90,9 @@ function startTextAnimation() {
 
                 }, familyNamesDelay * 1000);
 
-            }, namesDelay * 1000);
+            }, textDelay * 1000);
 
-        }, textDelay * 1000);
+        }, namesDelay * 1000);
 
     }, 3000); // 3 seconds - wait for card to appear (2.5s) + 0.5s delay
 }
